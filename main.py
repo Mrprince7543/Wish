@@ -2,21 +2,21 @@ from flask import Flask, render_template_string
 
 app = Flask(__name__)
 
-# REHAN LOVES ZOE - THE 32-PAGE ULTIMATE LUXURY EDITION
+# REHAN LOVES ZOE - MEGA 32-PAGE SMOOTH EDITION
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>32 Pages of Love - Zoe Verma ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>For Zoe Verma ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background: #ff4d6d;
-            background: linear-gradient(135deg, #ff0a54 0%, #ff758f 50%, #fecfef 100%);
+            background: #ff758f;
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff9a9e 50%, #fecfef 100%);
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -27,47 +27,39 @@ HTML_TEMPLATE = """
             padding: 10px;
         }
 
-        /* Top Title - Large & Glowing */
         .top-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             color: #fff;
             text-align: center;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px #fff, 0 0 40px #ff0055;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
             z-index: 20;
         }
 
         .header-box {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             border: 2px solid #fff;
-            padding: 10px 40px;
+            padding: 10px 35px;
             border-radius: 50px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             z-index: 20;
         }
+        .header-box h2 { font-size: 1.3rem; color: #fff; letter-spacing: 3px; text-transform: uppercase; }
 
-        .header-box h2 { 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem; 
-            color: #fff; 
-            letter-spacing: 5px; 
-            text-transform: uppercase;
-        }
-
-        /* Large & Powerful Card */
+        /* MAIN CONTAINER WITH YOUR IMAGE */
         .love-card {
             position: relative;
             width: 100%;
-            max-width: 580px;
+            max-width: 550px;
             height: 450px;
-            border-radius: 40px;
+            border-radius: 30px;
             z-index: 5;
             border: 5px solid #fff;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5);
-            background: url('https://i.ibb.co/rGT6qF7r/Picture-Unlock-TOI-521963-user0-pictureunlock.webp') center/cover no-repeat;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            background: url('https://i.ibb.co/1YTf7R36/FB-IMG-16249452197243361.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -79,8 +71,8 @@ HTML_TEMPLATE = """
         .glass-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(2px);
+            background: rgba(0, 0, 0, 0.4); /* Overlay for text readability */
+            backdrop-filter: blur(1.5px);
             z-index: 1;
         }
 
@@ -88,74 +80,60 @@ HTML_TEMPLATE = """
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4.5rem;
+            font-size: 4rem;
             color: #ffffff;
-            margin-bottom: 15px;
-            text-shadow: 4px 4px 25px #ff0055;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 20px #ff0055;
         }
 
         .typing-text {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: #fff;
             font-weight: 700;
-            min-height: 100px;
-            text-shadow: 3px 3px 15px #000;
+            min-height: 90px;
+            text-shadow: 2px 2px 10px #000;
             line-height: 1.4;
         }
 
-        /* Footer - Centered & Attractive */
+        /* ATTRACTIVE FOOTER */
         .footer-box {
-            margin-top: 25px;
+            margin-top: 20px;
             background: white;
-            padding: 15px 50px;
+            padding: 15px 40px;
             border-radius: 60px;
-            border: 3px solid #ff0055;
-            box-shadow: 0 10px 40px rgba(255, 0, 85, 0.5);
+            border: 3px solid #ff4d6d;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
             z-index: 20;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        .footer-box p { font-weight: 800; color: #ff4d6d; font-size: 1rem; text-transform: uppercase; margin: 0; letter-spacing: 1px;}
 
-        .footer-box p { 
-            font-weight: 800; 
-            color: #ff0055; 
-            font-size: 1.2rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        /* Buttons */
         .btn {
             background: #fff;
-            color: #ff0055;
+            color: #ff4d6d;
             border: none;
-            padding: 15px 45px;
-            border-radius: 60px;
-            font-size: 1.2rem;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: 800;
             cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
+        .btn:hover { background: #ff4d6d; color: #fff; transform: scale(1.1); }
 
-        .btn:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 0, 85, 0.4);
-        }
-
-        /* Custom Heart Cursor */
         #cursor {
             position: fixed;
-            width: 25px; height: 25px;
+            width: 20px; height: 20px;
             background: #fff;
             clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            filter: drop-shadow(0 0 10px #ff0055);
+            filter: drop-shadow(0 0 5px #ff4d6d);
         }
 
         .heart-float {
@@ -164,21 +142,15 @@ HTML_TEMPLATE = """
             pointer-events: none;
             animation: moveUp 5s linear forwards;
             z-index: 1;
-            will-change: transform;
         }
-
         @keyframes moveUp {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+            0% { transform: translateY(110vh); opacity: 0; }
+            100% { transform: translateY(-10vh); opacity: 0; }
         }
 
         .screen { display: none; width: 100%; }
-        .active { display: block; animation: fadeIn 0.4s ease-in; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -196,8 +168,8 @@ HTML_TEMPLATE = """
         <div class="content-inner">
             <div id="page1" class="screen active">
                 <h1>Hi Jaan ❤️</h1>
-                <p class="typing-text" id="type1">Zoe, aaj aapke liye 32 pages ka ye digital letter shuru karte hain...</p>
-                <button class="btn" onclick="startApp()">START SURPRISE ✨</button>
+                <p class="typing-text" id="type1">Zoe, aaj aapke liye 32 pages ka ek haseen safar shuru karte hain...</p>
+                <button class="btn" onclick="startApp()">START JOURNEY ✨</button>
             </div>
             
             <div id="dynamic-content" class="screen">
@@ -207,7 +179,7 @@ HTML_TEMPLATE = """
             </div>
             
             <div id="final-page" class="screen">
-                <h1 style="font-size: 3.5rem;">Be Mine?</h1>
+                <h1 style="font-size: 3rem;">Be Mine?</h1>
                 <p class="typing-text">Zoe Verma, kya aap hamesha mere saath rahoge? Will you be mine forever? ❤️</p>
                 <div style="display:flex; justify-content:center; gap:20px;">
                     <button class="btn" onclick="sayYes()">YES! ❤️</button>
@@ -275,9 +247,7 @@ HTML_TEMPLATE = """
         }
 
         function startApp() {
-            music.play().catch(() => {
-                window.addEventListener('click', () => music.play(), {once: true});
-            });
+            music.play().catch(() => { window.addEventListener('click', () => music.play(), {once: true}); });
             document.getElementById('page1').style.display = 'none';
             document.getElementById('dynamic-content').style.display = 'block';
             nextStep();
@@ -297,18 +267,18 @@ HTML_TEMPLATE = """
 
         function sayYes() {
             alert('I Love You Tooo Much, Zoe Jaan! 😘😘😘');
-            setInterval(() => { createHeart(); }, 150);
+            setInterval(createHeart, 200);
         }
 
         function moveNoButton() {
             const btn = document.getElementById('noBtn');
             btn.style.position = 'fixed';
-            btn.style.left = Math.random() * (window.innerWidth - 150) + 'px';
-            btn.style.top = Math.random() * (window.innerHeight - 150) + 'px';
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
         }
 
         function createHeart() {
-            if (document.querySelectorAll('.heart-float').length > 15) return;
+            if (document.querySelectorAll('.heart-float').length > 12) return;
             const h = document.createElement('div');
             h.className = 'heart-float';
             h.innerHTML = '❤️';
@@ -317,8 +287,8 @@ HTML_TEMPLATE = """
             document.body.appendChild(h);
             setTimeout(() => h.remove(), 4000);
         }
-        setInterval(createHeart, 800);
-        typeEffect(document.getElementById('type1'), "Zoe, aaj aapke liye 32 pages ka ye digital letter shuru karte hain...");
+        setInterval(createHeart, 1000);
+        typeEffect(document.getElementById('type1'), "Zoe, aaj aapke liye 32 pages ka ek haseen safar shuru karte hain...");
     </script>
 </body>
 </html>

@@ -1,24 +1,23 @@
 from flask import Flask, render_template_string
-import random
 
 app = Flask(__name__)
 
-# REHAN LOVES ZOE - MEGA 32-PAGE SMOOTH EDITION
+# REHAN LOVES ZOE - 50-PAGE MEGA SMOOTH EDITION
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Zoe Verma ❤️</title>
+    <title>50 Pages of Love for Zoe Verma ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background: url('https://i.ibb.co/cSjzv48x/received-1191499147962097.jpg') center/cover no-repeat fixed;
-            background-attachment: fixed;
-            min-height: 100vh;
+            background: #ff4d6d;
+            background: linear-gradient(135deg, #ff0a54 0%, #ff758f 50%, #fecfef 100%);
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -26,18 +25,21 @@ HTML_TEMPLATE = """
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             padding: 10px;
-            position: relative;
         }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 77, 109, 0.4);
+
+        /* Floating Bubbles & Hearts Background */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: moveUp 6s linear forwards;
             z-index: 1;
+            will-change: transform, opacity;
+        }
+
+        @keyframes moveUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
         .top-title {
@@ -48,7 +50,6 @@ HTML_TEMPLATE = """
             margin-bottom: 10px;
             text-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
             z-index: 20;
-            position: relative;
         }
 
         .header-box {
@@ -60,11 +61,9 @@ HTML_TEMPLATE = """
             margin-bottom: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             z-index: 20;
-            position: relative;
         }
         .header-box h2 { font-size: 1.3rem; color: #fff; letter-spacing: 3px; text-transform: uppercase; }
 
-        /* MAIN CONTAINER */
         .love-card {
             position: relative;
             width: 100%;
@@ -74,38 +73,29 @@ HTML_TEMPLATE = """
             z-index: 5;
             border: 5px solid #fff;
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: url('https://i.ibb.co/1YTf7R36/FB-IMG-16249452197243361.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            will-change: transform;
-            position: relative;
         }
 
         .glass-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(3px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(1.5px);
             z-index: 1;
         }
 
-        .content-inner { 
-            position: relative; 
-            z-index: 2; 
-            width: 90%; 
-            text-align: center; 
-            padding: 20px;
-        }
+        .content-inner { position: relative; z-index: 2; width: 90%; text-align: center; }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: #ffffff;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 20px #ff0055;
         }
 
@@ -113,13 +103,11 @@ HTML_TEMPLATE = """
             font-size: 1.5rem;
             color: #fff;
             font-weight: 700;
-            min-height: 90px;
+            min-height: 100px;
             text-shadow: 2px 2px 10px #000;
             line-height: 1.4;
-            padding: 0 10px;
         }
 
-        /* ATTRACTIVE FOOTER */
         .footer-box {
             margin-top: 20px;
             background: white;
@@ -128,10 +116,6 @@ HTML_TEMPLATE = """
             border: 3px solid #ff4d6d;
             box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
             z-index: 20;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
         }
         .footer-box p { font-weight: 800; color: #ff4d6d; font-size: 1rem; text-transform: uppercase; margin: 0; letter-spacing: 1px;}
 
@@ -147,14 +131,12 @@ HTML_TEMPLATE = """
             margin-top: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: 0.3s;
-            position: relative;
-            z-index: 10;
         }
         .btn:hover { background: #ff4d6d; color: #fff; transform: scale(1.1); }
 
         #cursor {
             position: fixed;
-            width: 20px; height: 20px;
+            width: 25px; height: 25px;
             background: #fff;
             clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
             pointer-events: none;
@@ -163,67 +145,15 @@ HTML_TEMPLATE = """
             filter: drop-shadow(0 0 5px #ff4d6d);
         }
 
-        .heart-float {
-            position: absolute;
-            color: #fff;
-            pointer-events: none;
-            animation: moveUp 5s linear forwards;
-            z-index: 1;
-        }
-        @keyframes moveUp {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            50% { opacity: 1; transform: translateY(50vh) scale(1); }
-            100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
-        }
-
         .screen { display: none; width: 100%; }
-        .active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .page-counter {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-            z-index: 3;
-        }
-        
-        .music-control {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            z-index: 100;
-            backdrop-filter: blur(5px);
-            border: 2px solid white;
-        }
-        
-        .music-control:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        .active { display: block; }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
-    <div class="music-control" onclick="toggleMusic()" id="musicBtn">🎵</div>
-    
-    <!-- Multiple music options for better compatibility -->
-    <audio id="bgMusic" loop preload="auto" style="display:none;">
+    <audio id="bgMusic" loop preload="auto">
         <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tanishk_Bagchi/Raataan_Lambiyan.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="bgMusic2" loop preload="auto" style="display:none;">
-        <source src="https://assets.codepen.io/1468070/Happy+Valentine_s+Day+-+320bit.mp3" type="audio/mpeg">
     </audio>
 
     <div class="top-title">Happy Valentine's Day Zoe 😘</div>
@@ -234,25 +164,23 @@ HTML_TEMPLATE = """
         <div class="content-inner">
             <div id="page1" class="screen active">
                 <h1>Hi Jaan ❤️</h1>
-                <p class="typing-text" id="type1">Zoe, aaj aapke liye 32 pages ka ek haseen safar shuru karte hain...</p>
+                <p class="typing-text" id="type1">Zoe, aaj aapke liye 50 pages ka sabse bada digital surprise taiyar hai...</p>
                 <button class="btn" onclick="startApp()">START JOURNEY ✨</button>
             </div>
             
             <div id="dynamic-content" class="screen">
                 <h1 id="dyn-h1"></h1>
                 <p class="typing-text" id="dyn-p"></p>
-                <div class="page-counter" id="pageCounter"></div>
                 <button class="btn" id="dyn-btn" onclick="nextStep()">AAGE DEKHO 🌹</button>
             </div>
             
             <div id="final-page" class="screen">
-                <h1 style="font-size: 3rem;">Be Mine?</h1>
-                <p class="typing-text">Zoe Verma, kya aap hamesha mere saath rahoge? Will you be mine forever? ❤️</p>
+                <h1>Be Mine?</h1>
+                <p class="typing-text">Zoe Verma, 50 pages ke safar ke baad bas ek hi sawal... Will you be mine forever? ❤️</p>
                 <div style="display:flex; justify-content:center; gap:20px;">
                     <button class="btn" onclick="sayYes()">YES! ❤️</button>
                     <button class="btn" id="noBtn" style="background:#444; color:#fff;" onmouseover="moveNoButton()">NO</button>
                 </div>
-                <div class="page-counter">32/32</div>
             </div>
         </div>
     </div>
@@ -262,10 +190,7 @@ HTML_TEMPLATE = """
     <script>
         const cursor = document.getElementById('cursor');
         const music = document.getElementById('bgMusic');
-        const music2 = document.getElementById('bgMusic2');
         let currentPage = 0;
-        let isPlaying = false;
-        let currentMusic = music;
 
         const story = [
             { h: "The Smile", p: "Aapki muskurahat dekh kar mera din ban jata hai, Miss Zoe." },
@@ -282,59 +207,48 @@ HTML_TEMPLATE = """
             { h: "Trust", p: "Mujhe aap par poora bharosa hai, aap kabhi mera hath nahi chhodoge." },
             { h: "Special", p: "Zoe, aap mere liye mere family se kam nahi ho." },
             { h: "Laughter", p: "Aapka hansna mujhe duniya ki sabse badi khushi deta hai." },
-            { h: "Admiration", p: "Main ghanton bas aapko dekh sakta hoon bina bore huye." },
             { h: "Presence", p: "Aapki maujoodgi se hi ghar aur dil dono bhare huye lagte hain." },
-            { h: "Angel", p: "Bhagwan ne shayad aapko mere liye hi bheja hai." },
-            { h: "Kindness", p: "Aapka doosron ki care karna mujhe bohot pasand hai." },
             { h: "Connection", p: "Humara rishta sirf baaton ka nahi, dil ka gehra rishta hai." },
-            { h: "Memories", p: "Ab tak ki har ek minute jo maine aapke sath bitayi hai, wo precious hai." },
             { h: "Support", p: "Aapne mujhe tab samjha jab kisi ne nahi samjha." },
             { h: "Motivation", p: "Aapko dekh kar mujhe life mein behtar karne ki himmat milti hai." },
-            { h: "Vibe", p: "Aapki energy itni positive hai ki sab positive lagne lagta hai." },
-            { h: "Love", p: "Maine pyar ke baare mein suna tha, mehsoos aapke sath kiya." },
             { h: "Loyalty", p: "Rehan sirf Zoe ka hai, aur hamesha rahega." },
-            { h: "Promise 1", p: "Wada hai, main aapko kabhi rone nahi doonga." },
-            { h: "Promise 2", p: "Wada hai, main hamesha aapki har baat sununga." },
-            { h: "Promise 3", p: "Wada hai, main har mushkil mein aapke aage khada rahunga." },
-            { h: "Promise 4", p: "Wada hai, main hamesha aapka saath dunga har mausam mein." },
-            { h: "Promise 5", p: "Wada hai, aapko kabhi akela nahi chhodunga." },
-            { h: "Almost End", p: "Ab 32 pages ho chuke hain, par mera pyar abhi shuru hua hai." },
-            { h: "The Queen", p: "Zoe Verma, aap mere dil ke takht ki akeli rani ho." }
+            { h: "Wada", p: "Main hamesha aapki har baat sununga aur samjhunga." },
+            { h: "Bright Side", p: "Andheri raaton mein aap meri roshni ban kar aaye ho." },
+            { h: "My World", p: "Maine apni duniya aapke charon taraf basayi hai." },
+            { h: "Pure Love", p: "Mera pyar koi dikhava nahi, meri rooh ki sacchai hai." },
+            { h: "Admiration", p: "Aapki har ek adaa mere dil ko chu jati hai." },
+            { h: "Patience", p: "Aapke intezaar mein bitaya har pal mere liye ibadat hai." },
+            { h: "Gentleness", p: "Aapka lehja itna narm hai ki pathar bhi pighal jaye." },
+            { h: "Kindness", p: "Duniya ke liye aap ek insaan ho, par mere liye puri duniya." },
+            { h: "Protection", p: "Main har dukh se aapko bachane ka wada karta hoon." },
+            { h: "Silence", p: "Khamoshi mein bhi hum ek dusre ko samajh lete hain." },
+            { h: "Blessing", p: "Upar wale ka sabse bada shukrana ki aap meri ho." },
+            { h: "Infinity", p: "Humara safar kabhi khatam nahi hoga, ye anant hai." },
+            { h: "Best Friend", p: "Aap meri lover hi nahi, sabse acchi dost bhi ho." },
+            { h: "Safe Place", p: "Aapki bahon mein mujhe duniya ka sabse zyada sukoon milta hai." },
+            { h: "Healing", p: "Aapke ek 'Hello' se mere saare zakhm bhar jate hain." },
+            { h: "Respect", p: "Main sirf aap se pyar nahi karta, aapki bohot izzat bhi karta hoon." },
+            { h: "Home", p: "Ghar diwaron se nahi, aapke ehsaas se banta hai." },
+            { h: "Sunshine", p: "Aap mere mausam ki pehli dhoop ho." },
+            { h: "Priority", p: "Duniya ek taraf, aur mere liye aap hamesha pehle rahoge." },
+            { h: "Beauty", p: "Aapki khoobsurti sirat aur surat dono mein hai." },
+            { h: "Heartbeat", p: "Meri har dharkan bas aapka hi naam leti hai." },
+            { h: "Magic Moments", p: "Humari har choti mulakat mere liye ek tyohar hai." },
+            { h: "Stability", p: "Duniya badalti rahe, par Rehan ka Zoe ke liye pyar nahi badlega." },
+            { h: "Obsession", p: "Haan, main aapke pyar mein pagal hoon, aur garv hai mujhe." },
+            { h: "Future", p: "Main apna har kal sirf aapke saath dekhta hoon." },
+            { h: "One & Only", p: "Aap meri pehli aur aakhri pasand ho." },
+            { h: "Commitment", p: "Main zindagi bhar aapka sath nibhane ka wada karta hoon." },
+            { h: "Soulmate", p: "Hum do jism magar ek jaan hain, Zoe." },
+            { h: "Unstoppable", p: "Koi bhi takat humein juda nahi kar sakti." },
+            { h: "The Queen", p: "Aap mere dil ke takht ki akeli malkin ho." },
+            { h: "Final Thought", p: "Ab 50 pages pure huye, par mera pyar kabhi pura nahi hoga." }
         ];
 
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
-        function playMusic() {
-            if (!isPlaying) {
-                // Try first music source
-                currentMusic.play().then(() => {
-                    isPlaying = true;
-                    document.getElementById('musicBtn').innerHTML = '🔊';
-                }).catch(() => {
-                    // If first fails, try second source
-                    currentMusic = music2;
-                    currentMusic.play().then(() => {
-                        isPlaying = true;
-                        document.getElementById('musicBtn').innerHTML = '🔊';
-                    }).catch(() => {
-                        console.log("Music playback failed. User interaction may be required.");
-                    });
-                });
-            }
-        }
-
-        function toggleMusic() {
-            if (isPlaying) {
-                currentMusic.pause();
-                document.getElementById('musicBtn').innerHTML = '🔇';
-            } else {
-                playMusic();
-            }
-            isPlaying = !isPlaying;
-        }
 
         function typeEffect(element, text) {
             let i = 0;
@@ -349,9 +263,7 @@ HTML_TEMPLATE = """
         }
 
         function startApp() {
-            // Try to play music when user interacts
-            playMusic();
-            
+            music.play().catch(() => { window.addEventListener('click', () => music.play(), {once: true}); });
             document.getElementById('page1').style.display = 'none';
             document.getElementById('dynamic-content').style.display = 'block';
             nextStep();
@@ -362,7 +274,6 @@ HTML_TEMPLATE = """
                 const data = story[currentPage];
                 document.getElementById('dyn-h1').innerText = data.h;
                 typeEffect(document.getElementById('dyn-p'), data.p);
-                document.getElementById('pageCounter').innerText = `${currentPage + 1}/32`;
                 currentPage++;
             } else {
                 document.getElementById('dynamic-content').style.display = 'none';
@@ -371,12 +282,8 @@ HTML_TEMPLATE = """
         }
 
         function sayYes() {
-            alert('I Love You Tooo Much, Zoe Jaan! 😘😘😘\nYou just made me the happiest person in the world!');
-            setInterval(createHeart, 200);
-            document.querySelector('.footer-box p').innerHTML = '💖 ZOE SAID YES! I LOVE YOU FOREVER! 💖';
-            document.querySelector('.footer-box').style.background = '#ff4d6d';
-            document.querySelector('.footer-box').style.color = '#fff';
-            document.querySelector('.footer-box p').style.color = '#fff';
+            alert('I Love You Tooo Much, Zoe Jaan! 😘😘😘');
+            setInterval(() => createParticle('❤️'), 100);
         }
 
         function moveNoButton() {
@@ -384,31 +291,26 @@ HTML_TEMPLATE = """
             btn.style.position = 'fixed';
             btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
             btn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
-            btn.innerText = 'YES BHI BOLDO! 😘';
-            btn.style.background = '#ff4d6d';
-            btn.style.color = '#fff';
         }
 
-        function createHeart() {
-            if (document.querySelectorAll('.heart-float').length > 25) return;
-            const h = document.createElement('div');
-            h.className = 'heart-float';
-            h.innerHTML = '❤️';
-            h.style.left = Math.random() * 100 + 'vw';
-            h.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            h.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 5000);
+        function createParticle(symbol) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.innerHTML = symbol;
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            p.style.color = symbol === '❤️' ? '#ff4d6d' : '#fff';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 6000);
         }
 
-        // Initialize
-        typeEffect(document.getElementById('type1'), "Zoe, aaj aapke liye 32 pages ka ek haseen safar shuru karte hain...");
-        setInterval(createHeart, 1000);
-        
-        // Auto-start music after a short delay (browsers may block this)
-        setTimeout(() => {
-            playMusic();
-        }, 1000);
+        // Run Hearts and Bubbles continuously
+        setInterval(() => {
+            createParticle('❤️');
+            createParticle('○'); // Bubbles
+        }, 400);
+
+        typeEffect(document.getElementById('type1'), "Zoe, aaj aapke liye 50 pages ka sabse bada digital surprise taiyar hai...");
     </script>
 </body>
 </html>
@@ -419,4 +321,4 @@ def home():
     return render_template_string(HTML_TEMPLATE)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)

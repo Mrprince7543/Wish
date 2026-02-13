@@ -173,7 +173,7 @@ HTML_TEMPLATE = """
         <div class="content-inner">
             <div id="page1" class="screen active">
                 <h1>Hi Zoe ❤️</h1>
-                <p class="typing-text" id="type1">Aapke liye ye 75 pages ka sabse lamba aur pyara surprise taiyar hai... Ready?</p>
+                <p class="typing-text" id="type1">Aapke liye ye chotasa pyara surprise taiyar hai... Ready?</p>
                 <button class="btn" onclick="startApp()">START JOURNEY ✨</button>
             </div>
             

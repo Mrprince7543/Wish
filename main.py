@@ -173,7 +173,7 @@ HTML_TEMPLATE = """
         <div class="content-inner">
             <div id="page1" class="screen active">
                 <h1>Hi Zoe ❤️</h1>
-                <p class="typing-text" id="type1">Aapke liye ye chotasa pyara surprise taiyar hai... Ready?</p>
+                <p class="typing-text" id="type1">Aapke liye ye chota sa pyara surprise taiyar hai... Ready?</p>
                 <button class="btn" onclick="startApp()">START JOURNEY ✨</button>
             </div>
             
@@ -185,7 +185,7 @@ HTML_TEMPLATE = """
             
             <div id="final-page" class="screen">
                 <h1>Be Mine?</h1>
-                <p class="typing-text">75 pages ki dastan ke baad, bas ek hi sawal... Will you be mine forever, Zoe? ❤️</p>
+                <p class="typing-text">chota sa dastan ke baad, bas ek hi sawal... Will you be mine forever, Zoe? ❤️</p>
                 <div style="display:flex; justify-content:center; gap:20px;">
                     <button class="btn" onclick="sayYes()">YES! ❤️</button>
                     <button class="btn" id="noBtn" style="background:#333; color:#fff;" onmouseover="moveNoButton()">NO</button>
